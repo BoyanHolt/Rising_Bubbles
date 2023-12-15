@@ -1,0 +1,54 @@
+class Bubble {
+
+  float r, g, b, a;
+  float x, y;
+  float size;
+  float speed;
+  boolean hit;
+  boolean touched;
+  boolean escaped;
+  boolean red;
+  int barrierHeight = 400;
+  int teleportHeight = -40;
+
+  Bubble() {
+    r = (float)Math.random()*256;
+    g = (float)Math.random()*256;
+    b = (float)Math.random()*256;
+    a = 255;
+    hit = false;
+
+    if (r>(g*2) && r>(b*2)) {
+      red = true;
+    } else {
+      red = false;
+    }
+    x = (float)(Math.random()*width);
+    y = height + 20;
+    size = (float)(Math.random()*30)+10;
+    speed = size * size * factor;
+  }
+
+  void move() {
+    x += (int)(Math.random()*6 - 3);
+    if (red == true) {
+      if (y > barrierHeight + (size/2)) {
+        y -= speed;
+      }
+    } else {
+      y -= speed;
+    }
+  }
+
+
+  void show() {
+    fill(r, g, b);
+    ellipse(x, y, size, size);
+  }
+
+  void teleport() {
+    if (y <= teleportHeight) {
+      y = height + 40;
+    }
+  }
+}
