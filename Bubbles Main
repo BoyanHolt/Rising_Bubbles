@@ -19,7 +19,11 @@ void draw() {
     bubsArrayList.get(i).teleport();
     collide();
     removeBub();
+    
   }
+  fill(0);
+  textSize(25);
+  text("Total:" + bubsArrayList.size(),50,50);
 }
 
 void collide() {
@@ -49,6 +53,8 @@ void removeBub() {
     
   }
 }
+
+
 
 void mousePressed() {
 
