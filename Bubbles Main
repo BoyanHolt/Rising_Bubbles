@@ -1,0 +1,59 @@
+Bubble aBub;
+ArrayList<Bubble> bubsArrayList;
+float factor = 0.002;
+
+
+void setup() {
+  size(400, 800);
+  bubsArrayList = new ArrayList<Bubble>();
+}
+
+void draw() {
+
+  background(255);
+  line(0, 400, width, 400);
+
+  for (int i = 0; i < bubsArrayList.size(); i++) {
+    bubsArrayList.get(i).move();
+    bubsArrayList.get(i).show();
+    bubsArrayList.get(i).teleport();
+    collide();
+    removeBub();
+  }
+}
+
+void collide() {
+  for (int i = bubsArrayList.size()-1; i >= 0; i--) {
+    Bubble primary = bubsArrayList.get(i);
+    for (int j = bubsArrayList.size()-1; j >= 0; j--) {
+      Bubble secondary = bubsArrayList.get(j);
+      if (primary != secondary) {
+        if (dist(primary.x, primary.y, secondary.x, secondary.y) <= (primary.size/2) + (secondary.size/2)) {
+          primary.hit = true;
+          secondary.hit = true;
+        }
+      }
+      if (primary.x+(primary.size/2) >= width || primary.x-(primary.size/2) <= 0) {
+        primary.hit = true;
+      }
+    }
+  }
+}
+
+void removeBub() {
+  for (int i = bubsArrayList.size()-1; i >= 0; i--) {
+    Bubble primary = bubsArrayList.get(i);
+    if(primary.hit == true) {
+    bubsArrayList.remove(i);
+    }
+    
+  }
+}
+
+void mousePressed() {
+
+  Bubble aBub = new Bubble();
+  bubsArrayList.add(aBub);
+  aBub = new Bubble();
+  bubsArrayList.add(aBub);
+}
